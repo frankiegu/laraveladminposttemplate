@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models\DummyModule;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class DummyStatisticModel extends Model
+{
+    use SoftDeletes;
+
+    protected $table = 'DummyNameModule_DummyNameStatistic';
+    protected $guarded = [];
+
+    public function DummyNameCategory()
+    {
+        return $this->belongsTo(DummyCategoryModel::class, 'DummyNameCategory_id');
+    }
+}

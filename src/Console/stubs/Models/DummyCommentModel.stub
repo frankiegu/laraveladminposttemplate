@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models\DummyModule;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class DummyCommentModel extends Model
+{
+    use SoftDeletes;
+
+    protected $table = 'DummyNameModule_DummyNameComment';
+
+    public function DummyNamePost()
+    {
+        return $this->belongsTo(DummyPostModel::class, 'DummyNamePost_id', 'id');
+    }
+}

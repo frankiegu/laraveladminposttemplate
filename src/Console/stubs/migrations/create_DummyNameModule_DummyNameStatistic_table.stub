@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateDummyModuleDummyStatisticTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('DummyNameModule_DummyNameStatistic', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('DummyNameCategory_id')->default(0)->nullable()->DummyNameComment('类别');
+            $table->integer('DummyNamePost_num')->default(0)->nullable()->DummyNameComment('文章数量');
+            $table->integer('DummyNameComment_num')->default(0)->nullable()->DummyNameComment('评论数量');
+            $table->integer('last_updated_at')->default(0)->nullable()->DummyNameComment('最后更新时间');
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->index('DummyNameCategory_id', 'idx_DummyNameCategory_id');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('DummyNameModule_DummyNameStatistic');
+    }
+}

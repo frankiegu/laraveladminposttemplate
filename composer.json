@@ -1,0 +1,44 @@
+{
+    "name": "yangze/laraveladminposttemplate",
+    "description": "在 laravel-admin 后台生成通用文章模型",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zhenyangze",
+            "email": "zhenyangze@gmail.com",
+            "homepage": "https://github.com/zhenyangze"
+        }
+    ],
+    "homepage": "https://github.com/zhenyangze/laraveladminposttemplate",
+    "keywords": ["Laravel", "LaravelAdminPostTemplate"],
+    "require": {
+        "illuminate/support": "~5|~6",
+        "encore/laravel-admin": "^1.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3|~4",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "yangze\\LaravelAdminPostTemplate\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "yangze\\LaravelAdminPostTemplate\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "yangze\\LaravelAdminPostTemplate\\LaravelAdminPostTemplateServiceProvider"
+            ],
+            "aliases": {
+                "LaravelAdminPostTemplate": "yangze\\LaravelAdminPostTemplate\\Facades\\LaravelAdminPostTemplate"
+            }
+        }
+    }
+}

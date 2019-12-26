@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Models\DummyModule;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class DummyCategoryModel extends Model
+{
+    use SoftDeletes;
+
+    protected $table = 'DummyNameModule_DummyNameCategory';
+
+    public function DummyNamePost()
+    {
+        return $this->hasMany(DummyPostModel::class, 'DummyNameCategory_id', 'id');
+    }
+
+    public function DummyNameStatistic()
+    {
+        return $this->hasOne(DummyStatisticModel::class, 'DummyNameCategory_id', 'id');
+    }
+}

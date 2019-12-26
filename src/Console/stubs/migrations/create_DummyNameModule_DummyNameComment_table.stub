@@ -1,0 +1,38 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateDummyModuleDummyCommentTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('DummyNameModule_DummyNameComment', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('DummyNamePost_id')->DummyNameComment('文章 id')->nullable();
+            $table->string('user_name')->DummyNameComment('用户呢称')->nullable();
+            $table->string('user_email')->DummyNameComment('用户网址')->nullable();
+            $table->mediumText('content')->DummyNameComment('评论内容')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+
+            $table->index('DummyNamePost_id', 'idx_DummyNamePost_id');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('DummyNameModule_DummyNameComment');
+    }
+}

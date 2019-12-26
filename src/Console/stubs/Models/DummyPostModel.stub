@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Models\DummyModule;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class DummyPostModel extends Model
+{
+    use SoftDeletes;
+
+    protected $table = 'DummyNameModule_DummyNamePost';
+
+    public static function boot()
+    {
+        parent::boot();
+
+        $incrNumFunc = function ($model, $num = 1) {
+            $DummyStatisticModel = DummyStatisticModel::firstOrCreate([
+                'DummyNameCategory_id' => $model->DummyNameCategory_id,
+            ]);
+            $DummyStatisticModel->DummyNamePost_num = $DummyStatisticModel->DummyNamePost_num + $num;
+            $DummyStatisticModel->save();
+        };
+        self::created(function ($model) use ($incrNumFunc) {
+            $incrNumFunc($model, 1);
+        });
+        self::deleted(function ($model) use ($incrNumFunc) {
+            $incrNumFunc($model, -1);
+        });
+    }
+
+    public function DummyNameCategory()
+    {
+        return $this->belongsTo(DummyCategoryModel::class, 'DummyNameCategory_id');
+    }
+
+    public function DummyNameComment()
+    {
+        return $this->hasMany(DummyCommentModel::class, 'DummyNamePost_id');
+    }
+}

@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Admin\Controllers\DummyModule;
+
+use App\Http\Controllers\Controller;
+use App\Models\DummyModule\DummyPostModel;
+use Illuminate\Support\Facades\Request;
+use Encore\Admin\Facades\Admin;
+
+class ApiController extends Controller
+{
+    public function DummyNamePost()
+    {
+        $q = str_clear(request()->get('q'));
+        return DummyPostModel::where('title', 'like', "%$q%")->paginate(null, ['id', \DB::raw('concat(id, ": ", title) as text')]);
+    }
+}

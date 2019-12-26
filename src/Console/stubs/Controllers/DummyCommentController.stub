@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Admin\Controllers\DummyModule;
+
+use App\Models\DummyModule\DummyCommentModel;
+use App\Models\DummyModule\DummyPostModel;
+use Encore\Admin\Controllers\AdminController;
+use Encore\Admin\Form;
+use Encore\Admin\Grid;
+use Encore\Admin\Show;
+
+class DummyCommentController extends AdminController
+{
+    /**
+     * Title for current resource.
+     *
+     * @var string
+     */
+    protected $title = '评论';
+
+    /**
+     * Make a grid builder.
+     *
+     * @return Grid
+     */
+    protected function grid()
+    {
+        $grid = new Grid(new DummyCommentModel);
+
+        $grid->column('id', __('Id'));
+        $grid->column('DummyNamePost', __('DummyPost id'))->display(function ($DummyNamePost) {
+                return "<a href='" . route('DummyNamePost.index', [
+                    'id' => array_get($DummyNamePost, 'id', 0)
+                ]) . "'>" . array_get($DummyNamePost, 'title', '-') . "</a>";
+        });
+        $grid->column('user_name', __('User name'));
+        $grid->column('user_email', __('User email'));
+        $grid->column('content', __('Content'))->limit(30);
+        $grid->column('created_at', __('Created at'));
+        $grid->column('updated_at', __('Updated at'));
+
+        $grid->filter(function ($filter) {
+            $filter->disableIdFilter();
+            $filter->equal('DummyNamePost_id', __('DummyPost id'));
+        });
+        //$grid->column('deleted_at', __('Deleted at'));
+
+        return $grid;
+    }
+
+    /**
+     * Make a show builder.
+     *
+     * @param mixed $id
+     * @return Show
+     */
+    protected function detail($id)
+    {
+        $show = new Show(DummyCommentModel::findOrFail($id));
+
+        $show->field('id', __('Id'));
+        $show->field('DummyNamePost_id', __('DummyPost id'));
+        $show->field('user_name', __('User name'));
+        $show->field('user_email', __('User email'));
+        $show->field('content', __('Content'));
+        $show->field('created_at', __('Created at'));
+        $show->field('updated_at', __('Updated at'));
+        $show->field('deleted_at', __('Deleted at'));
+
+        return $show;
+    }
+
+    /**
+     * Make a form builder.
+     *
+     * @return Form
+     */
+    protected function form()
+    {
+        $form = new Form(new DummyCommentModel);
+
+        //$form->select('DummyNamePost_id', __('DummyNamePost id'))->options(function ($id) {
+            //return DummyPostModel::where('id', ">=", (int)$id)->take(10)->pluck('title', 'id');
+        //})->ajax('/admin/DummyNameModule/api/DummyNamePost');
+        $form->select('DummyNamePost_id', __('DummyPost id'))->match(function ($keyword) {
+            return DummyPostModel::where('title', 'LIKE', '%' . $keyword . '%')
+                ->select([\DB::raw('title AS text'), 'id',])
+                ->latest();
+        })->text(function ($id) {
+            return DummyPostModel::whereIn('id', [$id])->pluck('title', 'id');
+        });
+        $form->text('user_name', __('User name'));
+        $form->text('user_email', __('User email'));
+        $form->textarea('content', __('Content'));
+
+        return $form;
+    }
+}

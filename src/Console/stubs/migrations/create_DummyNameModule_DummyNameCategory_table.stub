@@ -1,0 +1,35 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateDummyModuleDummyNameCategoryTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('DummyNameModule_DummyNameCategory', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->DummyNameComment('名称')->nullable();
+            $table->string('description')->DummyNameComment('描述')->nullable();
+            $table->integer('order')->DummyNameComment('排序')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('DummyNameModule_DummyNameCategory');
+    }
+}
