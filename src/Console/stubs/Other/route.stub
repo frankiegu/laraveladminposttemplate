@@ -1,4 +1,4 @@
 // DummyNameModule
 $router->resource('DummyNameModule/DummyNamePost', DummyModule\DummyPostController::class);
-$router->resource('DummyNameModule/DummyNameDummyCategory', DummyModule\DummyCategoryController::class);
+$router->resource('DummyNameModule/DummyNameCategory', DummyModule\DummyCategoryController::class);
 $router->resource('DummyNameModule/DummyNameComment', DummyModule\DummyCommentController::class);
