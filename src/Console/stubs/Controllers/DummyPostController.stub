@@ -29,7 +29,7 @@ class DummyPostController extends AdminController
         $grid->model()->with(['DummyNameCategory', 'DummyNameComment:id,name'])->orderBy('id', 'desc');
 
         $grid->column('id', __('Id'));
-        $grid->column('DummyNameCategory.name', __('DummyNameCategory'))->link(route('DummyNameCategory.index'), 'self');
+        $grid->column('DummyNameCategory.name', __('DummyCategory'))->link(route('DummyNameCategory.index'), 'self');
         $grid->column('title', __('Title'))->limit(30);
         $grid->column('thumb', __('Thumb'))->image();
         $grid->column('DummyNameComment', __('DummyComment'))->display(function ($DummyComment) {
